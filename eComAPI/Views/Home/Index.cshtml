@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "eCommerce Platform 1.0";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+<div class="jumbotron" style="background-color:darkgrey;">
+    <h1 style="color:#d7ceb2; text-shadow: 3px 3px 0px #2c2e38, 5px 5px 0px #5c5f72; font: 80px 'BazarMedium';letter-spacing: 10px;">eCommerce APwesomeness</h1>
+    <p class="lead" style="color:HighlightText;">eCommerce Platform is a API that accepts JSON objects for purchase orders</p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Orders</h2>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled" data-bind="foreach: orders">
+                    <li>
+                        <strong>ID:</strong> <span data-bind="text: Id"></span>  <strong>Product ID:</strong> <span data-bind="text: Product_Id"></span>  <strong>Order Status ID:</strong> <span data-bind="text: OrderStatusId"></span>  <strong>User ID:</strong> <span data-bind="text: UserId"></span>  <strong>Last Update Date:</strong> <span data-bind="text: LastUpdate"></span>
+                        <small><a href="#" data-bind="click: $parent.getOrderDetail">Order Details</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
+
+    <!-- ko if:orderDetail() -->
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Order Detail</h2>
+            </div>
+            <table class="table">
+                <tr><td>Id</td><td data-bind="text: orderDetail().Id"></td></tr>
+                <tr><td>Product ID</td><td data-bind="text: orderDetail().Product_Id"></td></tr>
+                <tr><td>Quantity</td><td data-bind="text: orderDetail().Quantity"></td></tr>
+                <tr><td>Order Status ID</td><td data-bind="text: orderDetail().OrderStatusId"></td></tr>
+                <tr><td>Order Date</td><td data-bind="text: orderDetail().Order_Date"></td></tr>
+                <tr><td>User ID</td><td data-bind="text: orderDetail().UserId"></td></tr>
+                <tr><td>Last Update Date</td><td data-bind="text: orderDetail().LastUpdate"></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- /ko -->
+
+    <div class="col-md-4">
+        <!-- TODO: Delete new book -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- TODO: Update new book -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- TODO: Get One new book -->
+    </div>
+</div>
