@@ -70,6 +70,19 @@ namespace eComAPI.Controllers
             return Ok(order);
         }
 
+        //GET api/Orders?id=2&nested=true
+        [ResponseType(typeof(Order))]
+        public IHttpActionResult GetOrder(int id, bool nested)
+        {
+            var order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order);
+        }
+
         // PUT api/Orders/5
         public IHttpActionResult PutOrder(int id, Order order)
         {
@@ -106,20 +119,15 @@ namespace eComAPI.Controllers
 
         // POST api/Orders
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order)
+        public IHttpActionResult PostOrder(Order order, OrderLine orderLine)
         {
-
-            //dynamic jason
-            //var deJason = JsonConvert.DeserializeObject<OrderDTO>(jason.ToString());
-            //var jOrder = deJason.Content.ReadAsStringAsync().Result;
-
-            //Order order = new Order();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             db.Orders.Add(order);
+            db.OrderLines.Add(orderLine);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
@@ -136,6 +144,7 @@ namespace eComAPI.Controllers
             }
 
             db.Orders.Remove(order);
+            db.OrderLines.Remove(order.OrderLine);
             db.SaveChanges();
 
             return Ok(order);
