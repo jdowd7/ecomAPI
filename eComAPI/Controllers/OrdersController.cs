@@ -119,7 +119,7 @@ namespace eComAPI.Controllers
 
         // POST api/Orders
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order, OrderLine orderLine)
+        public IHttpActionResult PostOrder(Order order)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace eComAPI.Controllers
             }
 
             db.Orders.Add(order);
-            db.OrderLines.Add(orderLine);
+            db.OrderLines.Add(order.OrderLine);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
